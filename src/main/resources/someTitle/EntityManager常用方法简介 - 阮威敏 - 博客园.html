@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.cnblogs.com/NguyenVm/p/10037653.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+    <title>EntityManager常用方法简介 - 阮威敏 - 博客园</title>
+<meta property="og:description" content="首先简单介绍一下Entity生命周期中的Managed，Detached，Removed三种状态变化过程，如下图所示： 1.entityManager.persist(Object entity); ">
+    <link type="text/css" rel="stylesheet" href="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/bundle-CodingLife.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/bundle-CodingLife-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/NguyenVm/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/NguyenVm/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/NguyenVm/wlwmanifest.xml">
+    <script src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/osd.js.下载"></script><script src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/amp4ads-host-v0.js.下载"></script><script src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/pubads_impl_rendering_319.js.下载"></script><script async="" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/analytics.js.下载"></script><script src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script>var currentBlogId=475276;var currentBlogApp='NguyenVm',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/blog-common.js.下载" type="text/javascript"></script>
+<link rel="preload" href="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/f.txt"></script><script src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/pubads_impl_319.js.下载" async=""></script><link rel="prefetch" href="https://tpc.googlesyndication.com/safeframe/1-0-32/html/container.html"></head>
+<body>
+<a name="top"></a>
+
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/NguyenVm/"><img id="blogLogo" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/NguyenVm/">阮威敏</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/NguyenVm/">首页</a></li>
+<li><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/%E9%98%AE%E5%A8%81%E6%95%8F">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/NguyenVm/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/NguyenVm/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 8&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 0</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/NguyenVm/p/10037653.html">EntityManager常用方法简介</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>首先简单介绍一下Entity生命周期中的Managed，Detached，Removed三种状态变化过程，如下图所示：</p>
+<p><img src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/1537244-20181129115140272-2002187652.jpg" alt=""></p>
+<p>1.entityManager.persist(Object entity);　　新增数据；</p>
+<p>如果entity的主键不为空，而数据库没有该主键，会抛出异常；</p>
+<p>如果entity的主键不为空，而数据库有该主键，且entity的其他字段与数据库不同，persist后不会更新数据库；</p>
+<p>&nbsp;</p>
+<p>2.entityManager.find(Class&lt;T&gt; entityClass, Object primaryKey);　　根据主键查找数据；</p>
+<p>如果主键格式不正确，会抛出illegalArgumentException异常;</p>
+<p>如果主键在数据库未找到数据返回null；</p>
+<p>&nbsp;</p>
+<p>3.entityManager.remove(Object entity);　　删除数据；</p>
+<p>只能将Managed状态的Entity实例删除，由此Entity实例状态变为Removed；</p>
+<p>&nbsp;</p>
+<p>4.entityManager.merge(T entity);　　</p>
+<p>将&nbsp;Detached状态的Entity实例转至Managed状态；</p>
+<p>&nbsp;</p>
+<p>5.entityManager.clear();</p>
+<p>将所有的Entity实例状态转至Detached状态；</p>
+<p>&nbsp;</p>
+<p>6.entityManager.flush();</p>
+<p>将所有Managed状态的Entity实例同步到数据库；</p>
+<p>&nbsp;</p>
+<p>7.entityManager.refresh(Object entity);</p>
+<p>加载Entity实例后，数据库该条数据被修改，refresh该实例，能得到数据库最新的修改，覆盖原来的Entity实例；</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<pre>Object entity</pre></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(10037653,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;f38b7281-c60b-4b6e-4ddb-08d64a299ffb&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/NguyenVm/" target="_blank"><img src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/20181115113316.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/NguyenVm/">阮威敏</a><br>
+            <a href="http://home.cnblogs.com/u/NguyenVm/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/NguyenVm/followers">粉丝 - 0</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;f38b7281-c60b-4b6e-4ddb-08d64a299ffb&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(10037653,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">0</span>
+    </div>
+    <div class="buryit" onclick="votePost(10037653,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/NguyenVm/p/10033909.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/NguyenVm/p/10033909.html" title="发布于2018-11-28 18:45">基于EntityManager的分页查询解决方案</a><br><a href="https://www.cnblogs.com/NguyenVm/p/10040229.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/NguyenVm/p/10040229.html" title="发布于2018-12-04 14:33">《高性能MySQL(第3版)》摘要——索引篇</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2018-11-29 13:05</span> <a href="https://www.cnblogs.com/NguyenVm/">阮威敏</a> 阅读(<span id="post_view_count">566</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=10037653" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/NguyenVm/p/10037653.html#" onclick="AddToWz(10037653);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=475276,cb_entryId=10037653,cb_blogApp=currentBlogApp,cb_blogUserGuid='f38b7281-c60b-4b6e-4ddb-08d64a299ffb',cb_entryCreatedDate='2018/11/29 13:05:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/NguyenVm/p/10037653.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/NguyenVm/p/10037653.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="https://www.cnblogs.com/cmt/p/10496052.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-51CTO&#39;)">【课程】开学季给程序员们送福利啦！限量X-box等你来拿！</a><br><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://cloud.baidu.com/campaign/purchase-2019/index.html?track=cp:dsp|pf:pc|pp:chui-bokeyuan-huodong-19caigouji-BCC-neiyeCH-190311|pu:neiyeCH-wenzilian|ci:2019cgj|kw:2105959" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-百度云&#39;)">【推荐】百度云“猪”你开年行大运，红包疯狂拿</a><br><a href="https://news.cnblogs.com/n/621139/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-Open Source Summit&#39;)">【活动】2019开源技术盛宴(6.24~26上海世博中心)</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【推荐】55K刚面完Java架构师岗，这些技术你必须掌握</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/gpt.js.下载"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CN-9uqb9--ACFVNlYAodZ8MHpA"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/umpjls/p/7318896.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">EntityManager 详解</a><br>·  <a href="https://www.cnblogs.com/xuniannian/p/8431101.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">Javascript中常用方法简介</a><br>·  <a href="https://www.cnblogs.com/wenq001/p/9264861.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">springbootjpa批量保存数据--EntityManager和JpaRepository</a><br>·  <a href="https://www.cnblogs.com/hujunzheng/p/6656178.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">EntityManager的使用</a><br>·  <a href="https://www.cnblogs.com/zhaoziming-zhaogaojun/p/9570619.html" target="_blank" onclick="clickRecomItmem(undefined,&#39;undefined&#39;)">线程以其常用方法简介</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CIbSu6b9--ACFQZ0YAodRD4DXA"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="2" data-load-complete="true" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/621532/" target="_blank">丰田获香水分配器专利：可释放不同香气 还能对入侵者喷瓦斯</a><br> ·  <a href="https://news.cnblogs.com/n/621531/" target="_blank">支付宝蚂蚁森林2019年春种正式开启 胡杨再次上线</a><br> ·  <a href="https://news.cnblogs.com/n/621530/" target="_blank">微软举办在线交流会：如何在Windows 10中使用Alt-Tab让工作更高效</a><br> ·  <a href="https://news.cnblogs.com/n/621529/" target="_blank">全球首辆飞行摩托车开放预订 订金1万美元</a><br> ·  <a href="https://news.cnblogs.com/n/621528/" target="_blank">中国科大量子纠缠网络研究获进展 首次实现自检验</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/NguyenVm/">阮威敏</a><br>园龄：<a href="https://home.cnblogs.com/u/NguyenVm/" title="入园时间：2018-11-15">3个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/NguyenVm/followers/">0</a><br>关注：<a href="https://home.cnblogs.com/u/NguyenVm/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;f38b7281-c60b-4b6e-4ddb-08d64a299ffb&#39;)">+加关注</a></div><script>getFollowStatus('f38b7281-c60b-4b6e-4ddb-08d64a299ffb')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/02/01&#39;);return false;">&lt;</a></td><td align="center">2019年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center">5</td><td align="center">6</td><td align="center">7</td><td align="center">8</td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center">11</td><td class="CalTodayDay" align="center">12</td><td align="center">13</td><td align="center">14</td><td align="center">15</td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center">18</td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center">25</td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/NguyenVm/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/NguyenVm/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/NguyenVm/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/NguyenVm/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/NguyenVm/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/NguyenVm/tag/JAVA/">JAVA</a>(2)</li><li><a href="https://www.cnblogs.com/NguyenVm/tag/MySQL/">MySQL</a>(2)</li><li><a href="https://www.cnblogs.com/NguyenVm/tag/%E7%B4%A2%E5%BC%95/">索引</a>(2)</li><li><a href="https://www.cnblogs.com/NguyenVm/tag/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7/">微信公众号</a>(1)</li><li><a href="https://www.cnblogs.com/NguyenVm/tag/HttpURLConnection/">HttpURLConnection</a>(1)</li><li><a href="https://www.cnblogs.com/NguyenVm/tag/%E6%97%A5%E5%8E%86/">日历</a>(1)</li><li><a href="https://www.cnblogs.com/NguyenVm/tag/%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1/">数据统计</a>(1)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
+<h3 class="catListTitle">随笔档案</h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/NguyenVm/archive/2019/01.html">2019年1月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/NguyenVm/archive/2018/12.html">2018年12月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/NguyenVm/archive/2018/11.html">2018年11月 (3)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" style="display: none;">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"></div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/NguyenVm/p/10037653.html">1. EntityManager常用方法简介(566)</a></li><li><a href="https://www.cnblogs.com/NguyenVm/p/10033909.html">2. 基于EntityManager的分页查询解决方案(305)</a></li><li><a href="https://www.cnblogs.com/NguyenVm/p/9969222.html">3. Java-查询某年某月一个月的数据，以日历的形式展示。(99)</a></li><li><a href="https://www.cnblogs.com/NguyenVm/p/10101881.html">4. 微信公众号开发——用户账号体系(65)</a></li><li><a href="https://www.cnblogs.com/NguyenVm/p/10132464.html">5. Java-基于日期的数据统计(31)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap" style="display: none;">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap" style="display: none;">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2019 阮威敏
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+
+<iframe id="google_osd_static_frame_2915613020069" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./EntityManager常用方法简介 - 阮威敏 - 博客园_files/saved_resource(2).html"></iframe></body></html>
