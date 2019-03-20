@@ -1,5 +1,6 @@
 package com.jxy.controller;
 
+import com.jxy.remoteService.HessionRemoteService;
 import com.jxy.remoteService.RmiRemoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +24,9 @@ public class HomeController {
     @Autowired
     private RmiRemoteService rmiRemoteService;
 
+    @Autowired
+    private HessionRemoteService hessionRemoteService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String home(HttpServletRequest request, Model model) {
         Map<String, Object> user = new HashMap<>();
@@ -33,6 +37,7 @@ public class HomeController {
 
     @RequestMapping("login")
     public String loginGet(HttpServletRequest request) {
+        hessionRemoteService.say();
         String say = rmiRemoteService.say();
         System.out.println("rpc:"+say);
         return "login";

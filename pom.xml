@@ -60,6 +60,11 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>com.caucho</groupId>
+      <artifactId>hessian</artifactId>
+      <version>4.0.38</version>
+    </dependency>
     <!--测试-->
     <dependency>
       <groupId>junit</groupId>
