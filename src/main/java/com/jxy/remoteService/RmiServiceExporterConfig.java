@@ -21,11 +21,11 @@ public class RmiServiceExporterConfig {
         proxyFactoryBean.setServiceInterface(RmiRemoteService.class);
         return proxyFactoryBean;
     }
-    @Bean
+   /* @Bean
     public HessianProxyFactoryBean hessianProxyFactoryBean(){
         HessianProxyFactoryBean hessianProxyFactoryBean=new HessianProxyFactoryBean();
         hessianProxyFactoryBean.setServiceUrl("http://127.0.0.1:8080/rpc/hessianService.service");
         hessianProxyFactoryBean.setServiceInterface(HessionRemoteService.class);
         return hessianProxyFactoryBean;
-    }
+    }*/
 }
